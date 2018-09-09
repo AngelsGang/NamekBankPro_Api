@@ -4,33 +4,42 @@ namespace App\Controller;
 
 use App\Entity\Master;
 use App\Repository\MasterRepository;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use FOS\RestBundle\Controller\FOSRestController;
-use Symfony\Component\Routing\Annotation\Route;
 
 class MastersController extends FOSRestController
 {
     private $masterRepository;
     private $em;
 
+    /**
+     * MastersController constructor.
+     * @param MasterRepository $masterRepository
+     * @param EntityManagerInterface $em
+     */
     public function __construct(MasterRepository $masterRepository, EntityManagerInterface $em)
     {
         $this->masterRepository = $masterRepository;
         $this->em = $em;
     }
 
-    public function getUsersAction()
+    /**
+     * @return \FOS\RestBundle\View\View
+     */
+    public function getMastersAction()
     {
         $masters = $this->masterRepository->findAll();
         return $this->view($masters);
     }
-    public function getUserAction()
+    public function getMasterAction(Master $master)
+    {
+        return $this->view($master);
+    }
+    public function postMastersAction()
     {}
-    public function postUsersAction()
+    public  function putMasterAction()
     {}
-    public  function putUserAction()
-    {}
-    public function deleteUserAction()
+    public function deleteMasterAction()
     {}
 }

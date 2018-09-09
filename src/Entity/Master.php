@@ -2,8 +2,6 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -49,6 +47,11 @@ class Master implements UserInterface
      * @ORM\Column(type="simple_array", nullable=true)
      */
     private $roles;
+
+    public function __construct()
+    {
+        $this->roles = array('ROLE_USER', 'ROLE_ADMIN');
+    }
 
     public function getId(): ?int
     {
@@ -103,6 +106,9 @@ class Master implements UserInterface
         return $this;
     }
 
+    /**
+     * @return null|string
+     */
     public function getCompany(): ?string
     {
         return $this->company;
@@ -129,7 +135,7 @@ class Master implements UserInterface
      * and populated in any number of different ways when the user object
      * is created.
      *
-     * @return (Role|string)[] The user roles
+     * @return array (Role|string)[] The user roles
      */
     public function getRoles()
     {
@@ -137,6 +143,10 @@ class Master implements UserInterface
         return $this->roles;
     }
 
+    /**
+     * @param array|null $roles
+     * @return Master
+     */
     public function setRoles(?array $roles): self
     {
         $this->roles = $roles;
@@ -167,6 +177,7 @@ class Master implements UserInterface
     public function getSalt()
     {
         // TODO: Implement getSalt() method.
+        return null;
     }
 
     /**
