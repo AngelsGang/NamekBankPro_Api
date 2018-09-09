@@ -45,6 +45,11 @@ class Master implements UserInterface
      */
     private $company;
 
+    /**
+     * @ORM\Column(type="simple_array", nullable=true)
+     */
+    private $roles;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -129,6 +134,14 @@ class Master implements UserInterface
     public function getRoles()
     {
         // TODO: Implement getRoles() method.
+        return $this->roles;
+    }
+
+    public function setRoles(?array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
     }
 
     /**
@@ -164,6 +177,7 @@ class Master implements UserInterface
     public function getUsername()
     {
         // TODO: Implement getUsername() method.
+        return $this->getEmail();
     }
 
     /**
